@@ -20,6 +20,7 @@ let isTooltipVisible = false;
 let lastFetchedUrl = null;
 let cachedPreviews = {};
 let isEnabled = true; // Extension enabled by default
+let isMouseOverTooltip = false; // Track if mouse is over tooltip
 
 // Initialize when DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initialize);
@@ -68,6 +69,17 @@ function createTooltipElement() {
     tooltipElement
         .querySelector(".context-peek-tooltip-close")
         .addEventListener("click", hideTooltip);
+
+    // Add mouse enter/leave events to the tooltip itself
+    tooltipElement.addEventListener("mouseenter", () => {
+        isMouseOverTooltip = true;
+    });
+
+    tooltipElement.addEventListener("mouseleave", () => {
+        isMouseOverTooltip = false;
+        // Hide tooltip after leaving it
+        setTimeout(hideTooltip, 100);
+    });
 
     // Add tooltip to the DOM
     document.body.appendChild(tooltipElement);
@@ -161,7 +173,7 @@ function handleLinkMouseLeave() {
 
     // Hide tooltip with a small delay to allow moving to the tooltip
     setTimeout(() => {
-        if (!currentLink) {
+        if (!currentLink && !isMouseOverTooltip) {
             hideTooltip();
         }
     }, 100);
@@ -292,6 +304,31 @@ function setTooltipContent(html) {
         ".context-peek-tooltip-content"
     );
     contentElement.innerHTML = html;
+
+    // Add event listener to speak button if it exists
+    const speakButton = tooltipElement.querySelector(
+        ".context-peek-tooltip-speak"
+    );
+    if (speakButton) {
+        speakButton.addEventListener("click", handleSpeakButtonClick);
+    }
+}
+
+/**
+ * Handle speak button click
+ */
+function handleSpeakButtonClick() {
+    // Get the summary text
+    const summaryElement = tooltipElement.querySelector(
+        ".context-peek-tooltip-summary"
+    );
+    if (summaryElement && summaryElement.textContent) {
+        // Use the Web Speech API to read the text aloud
+        const utterance = new SpeechSynthesisUtterance(
+            summaryElement.textContent.trim()
+        );
+        window.speechSynthesis.speak(utterance);
+    }
 }
 
 /**
@@ -339,6 +376,15 @@ function getPreviewContent(data) {
     return `
     <div class="context-peek-tooltip-summary">
       ${data.summary}
+    </div>
+    <div class="context-peek-tooltip-actions">
+      <button class="context-peek-tooltip-speak" title="Read aloud">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+      </button>
     </div>
     <div class="context-peek-tooltip-footer">
       <div class="context-peek-tooltip-readtime">

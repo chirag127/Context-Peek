@@ -1,118 +1,151 @@
 /* Context Peek Tooltip Styles */
 
 .context-peek-tooltip {
-  position: absolute;
-  z-index: 10000;
-  width: 300px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #333;
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  border: 1px solid #eaeaea;
+    position: absolute;
+    z-index: 10000;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    border: 1px solid #eaeaea;
 }
 
 .context-peek-tooltip.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .context-peek-tooltip-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #555;
-  font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 13px;
 }
 
 .context-peek-tooltip-close {
-  cursor: pointer;
-  color: #999;
-  font-size: 16px;
-  line-height: 1;
+    cursor: pointer;
+    color: #999;
+    font-size: 16px;
+    line-height: 1;
 }
 
 .context-peek-tooltip-close:hover {
-  color: #555;
+    color: #555;
 }
 
 .context-peek-tooltip-summary {
-  margin-bottom: 10px;
-  font-size: 14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.context-peek-tooltip-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: 8px 0;
+}
+
+.context-peek-tooltip-speak {
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    transition: background-color 0.2s;
+}
+
+.context-peek-tooltip-speak:hover {
+    background-color: #e0e0e0;
+}
+
+.context-peek-tooltip-speak svg {
+    width: 16px;
+    height: 16px;
 }
 
 .context-peek-tooltip-footer {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #666;
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0f0;
 }
 
 .context-peek-tooltip-readtime,
 .context-peek-tooltip-score {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .context-peek-tooltip-readtime::before {
-  content: "⏱";
-  margin-right: 4px;
+    content: "⏱";
+    margin-right: 4px;
 }
 
 .context-peek-tooltip-score::before {
-  content: "🛡";
-  margin-right: 4px;
+    content: "🛡";
+    margin-right: 4px;
 }
 
 .context-peek-tooltip-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
 }
 
 .context-peek-tooltip-spinner {
-  width: 24px;
-  height: 24px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+    width: 24px;
+    height: 24px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .context-peek-tooltip-error {
-  color: #e74c3c;
-  text-align: center;
-  padding: 10px;
+    color: #e74c3c;
+    text-align: center;
+    padding: 10px;
 }
 
 /* Score color indicators */
 .score-high {
-  color: #27ae60;
+    color: #27ae60;
 }
 
 .score-medium {
-  color: #f39c12;
+    color: #f39c12;
 }
 
 .score-low {
-  color: #e74c3c;
+    color: #e74c3c;
 }
