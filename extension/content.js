@@ -22,6 +22,13 @@ let cachedPreviews = {};
 let isEnabled = true; // Extension enabled by default
 let isMouseOverTooltip = false; // Track if mouse is over tooltip
 
+// Speech settings
+let speechSettings = {
+    rate: 1,
+    pitch: 1,
+    voice: "",
+};
+
 // Initialize when DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initialize);
 
@@ -46,9 +53,20 @@ function initialize() {
  * Load settings from storage
  */
 function loadSettings() {
-    chrome.storage.sync.get({ enabled: true }, (items) => {
-        isEnabled = items.enabled;
-    });
+    chrome.storage.sync.get(
+        {
+            enabled: true,
+            speechSettings: {
+                rate: 1,
+                pitch: 1,
+                voice: "",
+            },
+        },
+        (items) => {
+            isEnabled = items.enabled;
+            speechSettings = items.speechSettings;
+        }
+    );
 }
 
 /**
@@ -323,10 +341,30 @@ function handleSpeakButtonClick() {
         ".context-peek-tooltip-summary"
     );
     if (summaryElement && summaryElement.textContent) {
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel();
+
         // Use the Web Speech API to read the text aloud
         const utterance = new SpeechSynthesisUtterance(
             summaryElement.textContent.trim()
         );
+
+        // Apply speech settings
+        utterance.rate = speechSettings.rate;
+        utterance.pitch = speechSettings.pitch;
+
+        // Set voice if specified
+        if (speechSettings.voice) {
+            const voices = window.speechSynthesis.getVoices();
+            const selectedVoice = voices.find(
+                (voice) => voice.voiceURI === speechSettings.voice
+            );
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+        }
+
+        // Speak the text
         window.speechSynthesis.speak(utterance);
     }
 }
@@ -415,6 +453,9 @@ function handleBackgroundMessages(message, sender, sendResponse) {
         if (!isEnabled && isTooltipVisible) {
             hideTooltip();
         }
+    } else if (message.action === "speechSettingsChanged") {
+        // Update speech settings
+        speechSettings = message.settings;
     }
     return true; // Keep the message channel open for async responses
 }

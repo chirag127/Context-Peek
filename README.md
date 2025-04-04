@@ -1,5 +1,7 @@
 # 🔍 Context Peek – Inline Link Preview with AI
 
+<https://chirag127.github.io/Context-Peek/>
+
 **Context Peek** is a browser extension that provides instant AI-powered link previews when hovering over hyperlinks. It scrapes the content of the linked page in the background and sends it to a backend API, which returns:
 
 -   📝 A concise summary
