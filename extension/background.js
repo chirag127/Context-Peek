@@ -5,7 +5,7 @@
 
 // Configuration
 const CONFIG = {
-    backendUrl: "http://localhost:3000/analyze",
+    backendUrl: "https://context-peek.onrender.com/analyze",
     cacheExpiration: 30 * 60 * 1000, // 30 minutes in milliseconds
     fetchTimeout: 10000, // 10 seconds timeout for fetching URLs
     maxContentLength: 50000, // Maximum content length to send to API
