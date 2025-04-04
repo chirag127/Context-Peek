@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Peek - AI-Powered Link Previews</title>
+    <link rel="icon" type="image/png" href="extension/icons/icon16.png">
+    <style>
+        :root {
+            /* Color variables */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-card: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-primary: #2196F3;
+            --accent-secondary: #1976D2;
+            --border-color: #333333;
+            --success-color: #4CAF50;
+            --warning-color: #FFC107;
+            --danger-color: #F44336;
+            
+            /* Spacing variables */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 5rem;
+            
+            /* Font variables */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-md: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-xxl: 2.5rem;
+            
+            /* Border radius */
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 16px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        a:hover {
+            color: var(--accent-secondary);
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background-color: var(--accent-primary);
+            color: var(--text-primary);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-md);
+            font-weight: 500;
+            text-align: center;
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-secondary);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--accent-primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--accent-primary);
+        }
+        
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .btn-icon svg {
+            width: 1em;
+            height: 1em;
+        }
+        
+        /* Header styles */
+        header {
+            background-color: var(--bg-secondary);
+            padding: var(--spacing-md) 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .logo {
+            width: 64px;
+            height: 64px;
+            margin-right: var(--spacing-sm);
+        }
+        
+        .app-name {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(90deg, var(--accent-primary), #64B5F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: var(--font-size-lg);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* Section styles */
+        section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-primary);
+            margin: var(--spacing-xs) auto 0;
+        }
+        
+        /* About section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* Features section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .feature-card {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-md);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent-primary);
+        }
+        
+        .feature-title {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        /* Installation section */
+        .installation-steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-md);
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius-md);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: var(--font-size-lg);
+        }
+        
+        /* How to use section */
+        .usage-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Tech stack section */
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+        
+        .tech-item {
+            background-color: var(--bg-card);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-sm);
+            transition: background-color var(--transition-fast);
+        }
+        
+        .tech-item:hover {
+            background-color: var(--accent-primary);
+        }
+        
+        /* Footer styles */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .app-name {
+                font-size: var(--font-size-xl);
+            }
+            
+            .tagline {
+                font-size: var(--font-size-md);
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        section {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        section:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        section:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+        
+        section:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="extension/icons/icon128.png" alt="Context Peek Logo" class="logo">
+                    <h1 class="app-name">Context Peek</h1>
+                </div>
+                <p class="tagline">AI-powered link previews without leaving the page</p>
+                <div class="header-buttons">
+                    <a href="https://github.com/chirag127/Context-Peek" target="_blank" class="btn btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        GitHub Repository
+                    </a>
+                    <a href="privacy-policy.html" target="_blank" class="btn btn-outline btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        Privacy Policy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About Context Peek</h2>
+                <div class="about-content">
+                    <p>Context Peek is a browser extension that provides instant AI-powered link previews when hovering over hyperlinks. It scrapes the content of the linked page in the background and sends it to a backend API, which returns a concise summary, estimated read time, and credibility score.</p>
+                    <p>Built for researchers, journalists, and information seekers, Context Peek adds context without leaving the page, helping you decide if a link is worth clicking.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="features">
+            <div class="container">
+                <h2 class="section-title">Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3 class="feature-title">AI-Powered Summaries</h3>
+                        <p>Get the gist of articles in 2-3 sentences without clicking through, saving you time and helping you focus on what matters.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱</div>
+                        <h3 class="feature-title">Read Time Estimates</h3>
+                        <p>Know how long an article will take to read before you click, helping you manage your time more effectively.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 class="feature-title">Credibility Scoring</h3>
+                        <p>Quickly assess the reliability of content with our 0-100 credibility score based on neutrality, sources, and trustworthiness.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔊</div>
+                        <h3 class="feature-title">Text-to-Speech</h3>
+                        <p>Listen to summaries with our built-in speak button, making content more accessible and convenient.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Instant Previews</h3>
+                        <p>Hover over a link to see what's on the other side without clicking, with intelligent caching for faster repeat previews.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">Interactive Tooltips</h3>
+                        <p>Tooltips stay open when you move your mouse to them, allowing you to interact with the content and controls.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="installation">
+            <div class="container">
+                <h2 class="section-title">Installation Instructions</h2>
+                <div class="installation-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Download the Extension</h3>
+                        <p>Clone or download the repository from <a href="https://github.com/chirag127/Context-Peek" target="_blank">GitHub</a>.</p>
+                        <code>git clone https://github.com/chirag127/Context-Peek.git</code>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Set Up the Backend</h3>
+                        <p>Navigate to the backend directory, install dependencies, and create a .env file with your Gemini API key.</p>
+                        <code>cd backend<br>npm install<br>cp .env.example .env</code>
+                        <p>Edit the .env file to add your Gemini API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a>.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Start the Backend Server</h3>
+                        <p>Start the Node.js Express backend that powers the AI analysis.</p>
+                        <code>npm start</code>
+                        <p>The server will run at http://localhost:3000 by default.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Load the Extension in Chrome</h3>
+                        <p>Open Chrome and navigate to chrome://extensions/, enable Developer mode, and load the extension.</p>
+                        <ol>
+                            <li>Open Chrome and go to <code>chrome://extensions/</code></li>
+                            <li>Enable "Developer mode" (toggle in the top-right corner)</li>
+                            <li>Click "Load unpacked" and select the <code>extension</code> directory</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="usage">
+            <div class="container">
+                <h2 class="section-title">How to Use</h2>
+                <div class="usage-content">
+                    <p>Using Context Peek is simple and intuitive:</p>
+                    <ol>
+                        <li><strong>Hover over any link</strong> on a webpage for a brief moment (500ms by default).</li>
+                        <li>A <strong>tooltip will appear</strong> showing a loading indicator while the content is being analyzed.</li>
+                        <li>Once loaded, you'll see a <strong>concise summary</strong> of the linked page, along with the <strong>estimated read time</strong> and <strong>credibility score</strong>.</li>
+                        <li>Click the <strong>speak button</strong> to have the summary read aloud.</li>
+                        <li>Move your mouse to the tooltip to interact with it, or move away to dismiss it.</li>
+                        <li>You can <strong>enable or disable</strong> the extension by clicking on the extension icon and using the toggle switch.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tech">
+            <div class="container">
+                <h2 class="section-title">Technology Stack</h2>
+                <div class="tech-list">
+                    <span class="tech-item">JavaScript</span>
+                    <span class="tech-item">Chrome Extension API</span>
+                    <span class="tech-item">Node.js</span>
+                    <span class="tech-item">Express</span>
+                    <span class="tech-item">Google Gemini AI</span>
+                    <span class="tech-item">Web Speech API</span>
+                    <span class="tech-item">HTML/CSS</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/chirag127/Context-Peek" target="_blank">GitHub Repository</a>
+                <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+            </div>
+            <p class="copyright">© 2025 Context Peek. Created by <a href="https://github.com/chirag127" target="_blank">Chirag Singhal</a>.</p>
+        </div>
+    </footer>
+</body>
+</html>

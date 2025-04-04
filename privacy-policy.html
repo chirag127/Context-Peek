@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Context Peek</title>
+    <link rel="icon" type="image/png" href="extension/icons/icon16.png">
+    <style>
+        :root {
+            /* Color variables */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-card: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-primary: #2196F3;
+            --accent-secondary: #1976D2;
+            --border-color: #333333;
+            --success-color: #4CAF50;
+            --warning-color: #FFC107;
+            --danger-color: #F44336;
+            
+            /* Spacing variables */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 5rem;
+            
+            /* Font variables */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-md: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-xxl: 2.5rem;
+            
+            /* Border radius */
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 16px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        a:hover {
+            color: var(--accent-secondary);
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background-color: var(--accent-primary);
+            color: var(--text-primary);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-md);
+            font-weight: 500;
+            text-align: center;
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-secondary);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+        
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .btn-icon svg {
+            width: 1em;
+            height: 1em;
+        }
+        
+        /* Header styles */
+        header {
+            background-color: var(--bg-secondary);
+            padding: var(--spacing-md) 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            margin-right: var(--spacing-sm);
+        }
+        
+        .app-name {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(90deg, var(--accent-primary), #64B5F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Main content styles */
+        .policy-section {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .policy-title {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-md);
+            color: var(--accent-primary);
+        }
+        
+        .policy-subtitle {
+            font-size: var(--font-size-lg);
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .policy-text {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .policy-list {
+            margin-left: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .policy-list li {
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .permission-card {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .permission-name {
+            font-weight: bold;
+            color: var(--accent-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .highlight {
+            background-color: rgba(33, 150, 243, 0.1);
+            padding: 2px 4px;
+            border-radius: var(--border-radius-sm);
+            color: var(--accent-primary);
+        }
+        
+        .last-updated {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        /* Footer styles */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: var(--spacing-md) 0;
+            text-align: center;
+            margin-top: var(--spacing-xl);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container {
+                margin-bottom: var(--spacing-sm);
+            }
+            
+            .policy-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .policy-subtitle {
+                font-size: var(--font-size-md);
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .policy-section {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .policy-section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .policy-section:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        .policy-section:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+        
+        .policy-section:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="extension/icons/icon128.png" alt="Context Peek Logo" class="logo">
+                    <h1 class="app-name">Context Peek</h1>
+                </div>
+                <a href="index.html" class="btn btn-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5"></path>
+                        <path d="M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <h1 class="policy-title">Privacy Policy</h1>
+        <p class="last-updated">Last Updated: April 5, 2025</p>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">Introduction</h2>
+            <p class="policy-text">
+                This Privacy Policy explains how Context Peek ("we", "our", or "us") collects, uses, and protects your information when you use our browser extension. We are committed to ensuring the privacy and security of your data while providing a valuable service that enhances your browsing experience.
+            </p>
+            <p class="policy-text">
+                Context Peek is designed to provide AI-powered link previews without compromising your privacy. This policy outlines our practices regarding data collection, usage, and your rights concerning your information.
+            </p>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">Required Permissions</h2>
+            <p class="policy-text">
+                Context Peek requires certain browser permissions to function properly. We request only the minimum permissions necessary to provide our service:
+            </p>
+            
+            <div class="permission-card">
+                <div class="permission-name">activeTab</div>
+                <p>This permission allows the extension to interact with the currently active tab. We use this to detect links on the page you're viewing and display tooltips when you hover over them. The extension cannot access your browsing history or tabs you're not currently viewing.</p>
+            </div>
+            
+            <div class="permission-card">
+                <div class="permission-name">storage</div>
+                <p>This permission allows the extension to save your preferences (such as whether the extension is enabled or disabled) locally on your device. We do not sync this data to any external servers.</p>
+            </div>
+            
+            <div class="permission-card">
+                <div class="permission-name">host_permissions: &lt;all_urls&gt;</div>
+                <p>This permission allows the extension to fetch content from websites when you hover over links. This is necessary to generate the preview summaries. The extension only fetches content from links you hover over, and only when you're actively using the extension.</p>
+            </div>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">Information We Collect</h2>
+            <p class="policy-text">
+                Context Peek is designed with privacy in mind. Here's what we do and don't collect:
+            </p>
+            
+            <h3 class="policy-subtitle">What we DO collect:</h3>
+            <ul class="policy-list">
+                <li><strong>Link Content:</strong> When you hover over a link, we temporarily fetch and process the content of that link to generate a summary, read time, and credibility score.</li>
+                <li><strong>User Preferences:</strong> We store your extension settings (enabled/disabled state) locally on your device.</li>
+            </ul>
+            
+            <h3 class="policy-subtitle">What we DO NOT collect:</h3>
+            <ul class="policy-list">
+                <li><strong>Personal Information:</strong> We do not collect any personally identifiable information such as your name, email address, or demographic information.</li>
+                <li><strong>Browsing History:</strong> We do not track or store your browsing history or patterns.</li>
+                <li><strong>Cookies or Tracking Data:</strong> We do not use cookies or any tracking technologies to monitor your activity.</li>
+                <li><strong>Link Interaction Data:</strong> We do not record which links you hover over or click on.</li>
+            </ul>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">How We Use Your Information</h2>
+            <p class="policy-text">
+                The limited information we collect is used solely for the purpose of providing the Context Peek service:
+            </p>
+            <ul class="policy-list">
+                <li><strong>Link Content:</strong> Used only to generate the preview summary, read time estimate, and credibility score for the specific link you hover over.</li>
+                <li><strong>User Preferences:</strong> Used to remember your settings (such as whether the extension is enabled) between browser sessions.</li>
+            </ul>
+            <p class="policy-text">
+                <span class="highlight">We do not sell, rent, or share any information with third parties for marketing or advertising purposes.</span> All processing is done either locally in your browser or through our secure backend service.
+            </p>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">Data Storage & Security</h2>
+            <p class="policy-text">
+                Context Peek prioritizes the security of your data:
+            </p>
+            <ul class="policy-list">
+                <li><strong>Local Storage:</strong> User preferences are stored locally on your device using Chrome's storage API.</li>
+                <li><strong>Temporary Processing:</strong> Link content is temporarily processed to generate previews and is not permanently stored.</li>
+                <li><strong>Caching:</strong> For performance reasons, we may temporarily cache preview results in your browser's memory during your browsing session. This cache is cleared when you close your browser or disable the extension.</li>
+                <li><strong>Backend Processing:</strong> When content is sent to our backend for AI processing, it is transmitted securely using HTTPS. The content is processed in memory and is not permanently stored on our servers.</li>
+            </ul>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">Third-Party Services</h2>
+            <p class="policy-text">
+                Context Peek uses the following third-party services:
+            </p>
+            <ul class="policy-list">
+                <li><strong>Google Gemini AI:</strong> We use Google's Gemini AI to generate summaries, read time estimates, and credibility scores. Content sent to Gemini is subject to <a href="https://ai.google.dev/privacy" target="_blank">Google's AI Privacy Policy</a>.</li>
+                <li><strong>Web Speech API:</strong> We use your browser's built-in Web Speech API for the text-to-speech functionality. This processing happens entirely on your device and no audio data is transmitted externally.</li>
+            </ul>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">User Rights</h2>
+            <p class="policy-text">
+                As a Context Peek user, you have the following rights regarding your data:
+            </p>
+            <ul class="policy-list">
+                <li><strong>Control:</strong> You can enable or disable the extension at any time through the popup interface.</li>
+                <li><strong>Access and Deletion:</strong> Since we don't store personal data, there is no need for formal access or deletion requests. Your preferences are stored locally and can be reset by uninstalling the extension.</li>
+                <li><strong>Opt-Out:</strong> You can completely opt-out of all data processing by disabling or uninstalling the extension.</li>
+            </ul>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">Changes to This Privacy Policy</h2>
+            <p class="policy-text">
+                We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify users of any material changes by:
+            </p>
+            <ul class="policy-list">
+                <li>Updating the "Last Updated" date at the top of this Privacy Policy</li>
+                <li>Providing a notification through the extension when you next use it after a policy change</li>
+            </ul>
+            <p class="policy-text">
+                We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information.
+            </p>
+        </section>
+        
+        <section class="policy-section">
+            <h2 class="policy-subtitle">Contact Information</h2>
+            <p class="policy-text">
+                If you have any questions, concerns, or feedback about this Privacy Policy or our privacy practices, please contact us by:
+            </p>
+            <ul class="policy-list">
+                <li>Opening an issue on our <a href="https://github.com/chirag127/Context-Peek/issues" target="_blank">GitHub repository</a></li>
+                <li>Contacting the developer directly through GitHub: <a href="https://github.com/chirag127" target="_blank">@chirag127</a></li>
+            </ul>
+            <p class="policy-text">
+                We will make every reasonable effort to address your concerns and resolve any issues in a timely manner.
+            </p>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="https://github.com/chirag127/Context-Peek" target="_blank">GitHub Repository</a>
+            </div>
+            <p class="copyright">© 2025 Context Peek. Created by <a href="https://github.com/chirag127" target="_blank">Chirag Singhal</a>.</p>
+        </div>
+    </footer>
+</body>
+</html>
