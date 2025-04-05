@@ -344,10 +344,32 @@ function handleSpeakButtonClick() {
         // Cancel any ongoing speech
         window.speechSynthesis.cancel();
 
+        // Remove any existing highlighting
+        removeTextHighlighting();
+
+        // Get the text content
+        const text = summaryElement.textContent.trim();
+
+        // Create a container for the highlighted text
+        const highlightedContent = document.createElement("div");
+        highlightedContent.className = "context-peek-highlighted-text";
+
+        // Split text into words for highlighting
+        const words = text.split(/\s+/);
+        words.forEach((word, index) => {
+            const wordSpan = document.createElement("span");
+            wordSpan.textContent = word + " ";
+            wordSpan.className = "context-peek-word";
+            wordSpan.dataset.wordIndex = index;
+            highlightedContent.appendChild(wordSpan);
+        });
+
+        // Replace the original content with the highlighted version
+        summaryElement.innerHTML = "";
+        summaryElement.appendChild(highlightedContent);
+
         // Use the Web Speech API to read the text aloud
-        const utterance = new SpeechSynthesisUtterance(
-            summaryElement.textContent.trim()
-        );
+        const utterance = new SpeechSynthesisUtterance(text);
 
         // Apply speech settings
         utterance.rate = speechSettings.rate;
@@ -364,8 +386,91 @@ function handleSpeakButtonClick() {
             }
         }
 
+        // Track current word for highlighting
+        let currentWordIndex = -1;
+
+        // Add event listeners for speech events
+        utterance.onboundary = function (event) {
+            if (event.name === "word") {
+                // Calculate word index based on character position
+                const wordIndex = calculateWordIndex(text, event.charIndex);
+
+                // Remove previous highlighting
+                if (currentWordIndex >= 0) {
+                    const prevWord = highlightedContent.querySelector(
+                        `.context-peek-word[data-word-index="${currentWordIndex}"]`
+                    );
+                    if (prevWord) {
+                        prevWord.classList.remove(
+                            "context-peek-word-highlight"
+                        );
+                    }
+                }
+
+                // Add highlighting to current word
+                currentWordIndex = wordIndex;
+                const currentWord = highlightedContent.querySelector(
+                    `.context-peek-word[data-word-index="${currentWordIndex}"]`
+                );
+                if (currentWord) {
+                    currentWord.classList.add("context-peek-word-highlight");
+
+                    // Scroll to the word if needed
+                    if (
+                        summaryElement.scrollHeight >
+                        summaryElement.clientHeight
+                    ) {
+                        const wordTop =
+                            currentWord.offsetTop - summaryElement.offsetTop;
+                        const scrollPosition =
+                            wordTop - summaryElement.clientHeight / 2;
+                        summaryElement.scrollTop = Math.max(0, scrollPosition);
+                    }
+                }
+            }
+        };
+
+        // Handle speech end
+        utterance.onend = function () {
+            // Remove highlighting when speech ends
+            setTimeout(removeTextHighlighting, 500);
+        };
+
         // Speak the text
         window.speechSynthesis.speak(utterance);
+    }
+}
+
+/**
+ * Calculate word index based on character position
+ * @param {string} text - The full text
+ * @param {number} charIndex - Character index from speech event
+ * @returns {number} - Word index
+ */
+function calculateWordIndex(text, charIndex) {
+    // Count words up to the character index
+    const textUpToIndex = text.substring(0, charIndex);
+    return textUpToIndex.split(/\s+/).length - 1;
+}
+
+/**
+ * Remove text highlighting and restore original text
+ */
+function removeTextHighlighting() {
+    const summaryElement = tooltipElement.querySelector(
+        ".context-peek-tooltip-summary"
+    );
+
+    if (summaryElement) {
+        const highlightedContent = summaryElement.querySelector(
+            ".context-peek-highlighted-text"
+        );
+        if (highlightedContent) {
+            // Get the original text
+            const originalText = highlightedContent.textContent;
+            // Restore original text without highlighting
+            summaryElement.textContent = originalText;
+        }
     }
 }
 

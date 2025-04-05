@@ -47,9 +47,13 @@
     color: #555;
 }
 
+/* Summary content */
 .context-peek-tooltip-summary {
     margin-bottom: 10px;
     font-size: 14px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
 .context-peek-tooltip-actions {
@@ -148,4 +152,24 @@
 
 .score-low {
     color: #e74c3c;
+}
+
+/* Text highlighting styles */
+
+.context-peek-highlighted-text {
+    line-height: 1.6;
+}
+
+.context-peek-word {
+    display: inline;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 3px;
+    padding: 1px 0;
+}
+
+.context-peek-word-highlight {
+    background-color: #2196f3;
+    color: white;
+    padding: 1px 3px;
+    margin: 0 -3px;
 }
