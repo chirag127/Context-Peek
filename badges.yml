@@ -1,0 +1,80 @@
+# Badges Configuration
+
+# Dynamic Base URL for the repository
+# Example: https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension
+base_url: "https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension"
+
+# Badges Configuration
+# References: https://shields.io/
+badges:
+  # Build Status (GitHub Actions)
+  - name: "Build Status"
+    icon: "github actions"
+    url: "https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/actions/workflows/ci.yml"
+    link: "${base_url}/actions/workflows/ci.yml"
+    style: "flat-square"
+
+  # Code Coverage (Assuming Codecov is used, adjust if different)
+  # Replace with actual coverage service if not Codecov (e.g., Coveralls)
+  - name: "Code Coverage"
+    icon: "codecov"
+    url: "https://codecov.io/github/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension"
+    link: "https://codecov.io/github/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension"
+    style: "flat-square"
+
+  # Tech Stack (JavaScript/TypeScript - Assuming Node.js environment)
+  - name: "JavaScript"
+    icon: "javascript"
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+    link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+    style: "flat-square"
+
+  # Tech Stack (Node.js)
+  - name: "Node.js"
+    icon: "node.js"
+    url: "https://nodejs.org/"
+    link: "https://nodejs.org/"
+    style: "flat-square"
+
+  # Tech Stack (Browser Extension)
+  - name: "Browser Extension"
+    icon: "chrome"
+    url: "https://developer.chrome.com/docs/extensions/mv3/get_started/"
+    link: "https://developer.chrome.com/docs/extensions/mv3/get_started/"
+    style: "flat-square"
+
+  # Linting/Formatting (Assuming Biome or ESLint/Prettier)
+  # For this project (HTML/JS), ESLint might be more typical than Biome unless a monorepo structure is implied.
+  # If Biome is confirmed, adjust URL and icon.
+  - name: "ESLint"
+    icon: "eslint"
+    url: "https://eslint.org/"
+    link: "https://eslint.org/"
+    style: "flat-square"
+
+  # License (CC BY-NC 4.0)
+  - name: "License"
+    icon: "cc-nc"
+    url: "https://creativecommons.org/licenses/by-nc/4.0/"
+    link: "https://creativecommons.org/licenses/by-nc/4.0/"
+    style: "flat-square"
+
+  # GitHub Stars
+  - name: "GitHub Stars"
+    icon: "github"
+    url: "${base_url}"
+    link: "${base_url}"
+    style: "flat-square"
+
+# Optional: Other potential badges based on common practices
+# - name: "Dependencies"
+#   icon: "dependencies"
+#   url: "https://david-dm.org/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension"
+#   link: "https://david-dm.org/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension"
+#   style: "flat-square"
+
+# - name: "Vulnerabilities"
+#   icon: "snyk"
+#   url: "https://snyk.io/test/github/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension"
+#   link: "https://snyk.io/vuln/github/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension"
+#   style: "flat-square"
