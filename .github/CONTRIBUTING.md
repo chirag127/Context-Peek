@@ -1,93 +1,125 @@
 # Contributing to PeekInsight-AI-Link-Preview-Browser-Extension
 
-Thank you for considering contributing to PeekInsight! We welcome your ideas, contributions, and efforts to make this AI-powered browser extension even better.
+Thank you for considering contributing to PeekInsight! We aim to foster a collaborative environment where developers can help improve this AI-powered browser extension.
 
-## 1. Our Guiding Principles
+## 1. Code of Conduct
 
-As per the **SYSTEM: APEX TECHNICAL AUTHORITY & ELITE ARCHITECT (DECEMBER 2025 EDITION)**, we adhere to the following core principles:
+This project adheres to the Contributor Covenant Code of Conduct, version 2.1. Please review the full [CODE_OF_CONDUCT.md](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/blob/main/CODE_OF_CONDUCT.md) to understand the expected behavior.
 
-*   **Zero-Defect, High-Velocity, Future-Proof:** Aim for high-quality, robust code that can be delivered quickly and maintained long-term.
-*   **FAANG-Level Standards:** Maintain exceptional code quality, rigorous testing, and comprehensive documentation.
-*   **Managing the Unmanageable:** Strive for clarity, maintainability, and extensibility in all aspects of the project.
-*   **Professional Archival:** Even retired or experimental code should be treated with dignity and clarity.
+## 2. Prerequisites
 
-## 2. How to Contribute
+Before you start contributing, ensure you have the following installed:
 
-We accept contributions in various forms:
+*   **Node.js:** Version 18.x or higher (for development and extension building).
+*   **npm or Yarn:** Package manager for Node.js.
+*   **Git:** For version control.
 
-*   **Reporting Bugs:** If you find a bug, please report it using the issue template. Provide clear steps to reproduce.
-*   **Suggesting Features:** Have an idea for a new feature? Open an issue and describe your suggestion.
-*   **Submitting Pull Requests:** The most direct way to contribute is by submitting code.
+## 3. Getting Started
 
-## 3. Development Workflow
-
-Follow these steps to set up your development environment and submit changes:
-
-### 3.1. Prerequisites
-
-*   **Node.js:** Version 18 or higher recommended.
-*   **npm/Yarn/pnpm:** A package manager.
-*   **Browser:** Modern browser (Chrome, Firefox, Edge) for testing.
-
-### 3.2. Setup
-
-1.  **Fork the Repository:** Create your own fork of `https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension`.
-2.  **Clone Your Fork:**
+1.  **Fork the Repository:** Create your own fork of the `chirag127/PeekInsight-AI-Link-Preview-Browser-Extension` repository.
+2.  **Clone Your Fork:** Clone your forked repository to your local machine:
     bash
     git clone https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension.git
     cd PeekInsight-AI-Link-Preview-Browser-Extension
     
-3.  **Set Upstream Remote:**
+3.  **Set Upstream Remote:** Add the original repository as an upstream remote:
     bash
     git remote add upstream https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension.git
     
-4.  **Install Dependencies:**
+4.  **Create a New Branch:** Start your work on a new branch:
     bash
-    npm install
-    # or yarn install / pnpm install
+    git checkout -b feature/your-feature-name
     
 
-### 3.3. Branching Strategy
+## 4. Development Workflow
 
-*   Create a new branch for every feature or bug fix. Use a descriptive name (e.g., `feat/add-credibility-score`, `fix/incorrect-summary-length`).
-*   Your branch name should follow the pattern: `<type>/<description>` where type is one of `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`.
+### 4.1. Installation
 
-### 3.4. Making Changes
+Install project dependencies:
 
-*   **Coding Standards:** Adhere to the established linting and formatting rules. The project uses Ruff and Biome (if applicable to frontend aspects), or standard linters for Node.js/JavaScript. Run linters locally before committing.
-*   **Testing:** Write comprehensive tests for your changes. Ensure all existing tests pass.
-*   **Commit Messages:** Write clear and concise commit messages. Follow the Conventional Commits specification (e.g., `feat: Add AI summarization capability`).
+bash
+npm install
+# or
+yarn install
 
-### 3.5. Submitting a Pull Request
 
-1.  **Ensure Your Branch is Up-to-Date:**
+### 4.2. Running the Extension Locally
+
+Follow the browser-specific instructions for loading an unpacked extension. This typically involves:
+
+1.  Building the extension (if applicable).
+2.  Navigating to the browser's extension management page (e.g., `chrome://extensions/` for Chrome).
+3.  Enabling 'Developer mode'.
+4.  Clicking 'Load unpacked' and selecting the `dist` or `build` directory of your local project.
+
+### 4.3. Linting and Formatting
+
+We use Biome for fast linting and formatting.
+
+*   **Check Code Quality:**
     bash
-    git fetch upstream
-    git rebase upstream/main
+    npm run lint
+    # or
+    yarn lint
     
-2.  **Run Tests and Linters:** Make sure everything passes.
-3.  **Push Your Branch:**
+*   **Format Code:**
     bash
-    git push origin <your-branch-name>
+    npm run format
+    # or
+    yarn format
     
-4.  **Open a Pull Request:** Navigate to the repository on GitHub and open a pull request from your branch to `main`.
-5.  **Describe Your Changes:** Provide a clear description of your PR, including the problem it solves and the approach taken.
 
-## 4. Code of Conduct
+It's recommended to run these commands before committing your changes.
 
-This project adheres to a strict Code of Conduct. Please read and abide by it to ensure a welcoming and inclusive environment for everyone.
+### 4.4. Testing
 
-## 5. AI Agent Directives & Architectural Adherence
+We use Vitest for unit tests and Playwright for end-to-end tests.
 
-All contributions must align with the project's AI Agent Directives and architectural patterns as defined in `AGENTS.md` and `README.md`. This includes:
+*   **Run Unit Tests:**
+    bash
+    npm run test:unit
+    # or
+    yarn test:unit
+    
+*   **Run End-to-End Tests:**
+    bash
+    npm run test:e2e
+    # or
+    yarn test:e2e
+    
 
-*   **Technology Stack:** Adherence to Node.js, JavaScript, HTML, CSS, and relevant AI APIs (e.g., Gemini API).
-*   **Architectural Patterns:** Maintaining principles like DRY, SOLID, and modular design.
-*   **Verification:** Ensuring changes integrate seamlessly with AI processing and browser extension functionalities.
+## 5. Making a Contribution
 
-## 6. Resources
+### 5.1. Types of Contributions
 
-*   **Repository:** [PeekInsight-AI-Link-Preview-Browser-Extension](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension)
-*   **Issue Tracker:** [Issues](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/issues)
+We welcome contributions in the form of bug fixes, new features, documentation improvements, and more. Common contribution types include:
 
-We look forward to your contributions!
+*   **Bug Reports:** If you find a bug, please file an issue with a clear description and steps to reproduce.
+*   **Feature Requests:** Suggest new features by opening an issue.
+*   **Code Contributions:** Submit pull requests for bug fixes or new features.
+
+### 5.2. Pull Request Process
+
+1.  Ensure your code is linted and formatted (`npm run format`).
+2.  Ensure all tests are passing (`npm run test:unit`, `npm run test:e2e`).
+3.  Commit your changes with clear and concise messages.
+4.  Push your branch to your fork:
+    bash
+    git push origin feature/your-feature-name
+    
+5.  Open a Pull Request against the `main` branch of the `chirag127/PeekInsight-AI-Link-Preview-Browser-Extension` repository.
+6.  Your PR will be reviewed by the maintainers.
+
+### 5.3. AI Agent Directives
+
+This project adheres to the Apex Technical Authority's AI Agent Directives. Ensure your contributions align with the architectural principles outlined in `.github/AGENTS.md`.
+
+## 6. Reporting Security Vulnerabilities
+
+If you find a security vulnerability, please follow the instructions in `.github/SECURITY.md`.
+
+## 7. Questions
+
+If you have any questions, feel free to open an issue.
+
+Thank you for helping to make PeekInsight better!
