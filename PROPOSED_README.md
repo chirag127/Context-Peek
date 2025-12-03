@@ -1,209 +1,223 @@
-<div align="center">
-
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/main/.github/assets/banner-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/main/.github/assets/banner-light.png">
-    <img alt="PeekInsight Banner" src="https://raw.githubusercontent.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/main/.github/assets/banner-light.png">
-  </picture>
-
-  <br/>
-
-  <div>
-    <a href="https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/actions/workflows/ci.yml">
-      <img src="https://img.shields.io/github/actions/workflow/status/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/ci.yml?branch=main&style=flat-square" alt="Build Status">
-    </a>
-    <a href="https://codecov.io/gh/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension">
-      <img src="https://img.shields.io/codecov/c/github/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension?style=flat-square" alt="Code Coverage">
-    </a>
-    <img src="https://img.shields.io/badge/tech-TypeScript%20%7C%20Vite%20%7C%20WXT-blue?style=flat-square" alt="Tech Stack">
-    <a href="https://biomejs.dev">
-      <img src="https://img.shields.io/badge/lint-Biome-blueviolet?style=flat-square" alt="Linting & Formatting">
-    </a>
-    <a href="https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/blob/main/LICENSE">
-      <img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey?style=flat-square" alt="License">
-    </a>
-    <a href="https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/stargazers">
-      <img src="https://img.shields.io/github/stars/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension?style=flat-square&logo=github" alt="GitHub Stars">
-    </a>
-  </div>
-
-  <a href="https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/stargazers">
-    <img src="https://img.shields.io/badge/star%20this%20repo-%E2%98%85-yellow?style=flat-square" alt="Star this repo">
-  </a>
-
-</div>
-
 # PeekInsight: AI-Powered Link Preview Browser Extension
 
-PeekInsight is an AI-powered browser extension that provides instant, intelligent link previews on hover. Get concise AI-generated summaries, estimated read times, and credibility scores without ever leaving your current page, dramatically accelerating research and browsing.
+A cutting-edge browser extension developed with **TypeScript** and **Tauri v2**, leveraging **Gemini API** for intelligent link previews. PeekInsight delivers concise summaries, estimated read times, and credibility scores directly within your browsing experience, enhancing productivity without context switching.
 
-Stop wasting time clicking through countless tabs. PeekInsight delivers the context you need, right when you need it, transforming how you navigate the web and consume information.
+## 🚀 Live Demo
 
-## ✨ Core Features
+**(Placeholder for Live Demo Link/GIF)**
 
-*   **🤖 AI-Powered Summaries:** Instantly understand the core message of any linked article, powered by the Google Gemini API.
-*   **⏱️ Estimated Read Time:** Quickly gauge the time commitment required for any piece of content.
-*   **🛡️ Credibility Score:** (Coming Soon) Heuristic-based analysis to flag potential misinformation or low-quality sources.
-*   **🚀 Zero-Context Switching:** Preview links without opening new tabs, keeping your workflow focused and efficient.
-*   **🎨 Non-Intrusive UI:** A clean, modern tooltip that appears on hover and disappears when you're done.
-*   **🌐 Universal Compatibility:** Works on most websites, from news articles and blogs to academic papers.
+## ✨ Features
 
-## 🏛️ Architectural Overview
+*   **Instant Link Previews:** Hover over any link to see an intelligent preview.
+*   **AI-Powered Summarization:** Get concise, context-aware summaries of web page content.
+*   **Estimated Read Time:** Understand the content length at a glance.
+*   **Credibility Scoring:** AI-driven assessment of source reliability.
+*   **Seamless Integration:** Works across all major websites without disruption.
+*   **Customizable Settings:** Tailor the preview experience to your preferences.
 
-This project follows the **Feature-Sliced Design (FSD)** methodology, ensuring a scalable, maintainable, and decoupled codebase. The architecture promotes a clear separation of concerns, making it easy to develop, test, and manage individual features.
+## 📊 Badges
 
-sh
-src/
-├── app/                 # Global styles, providers, and app-level logic
-├── pages/               # Entry points for extension UI (e.g., popup, options)
-│   └── popup/
-├── widgets/             # Compositional UI blocks (e.g., the complete preview card)
-│   └── link-preview-card/
-├── features/            # Business logic features
-│   ├── summarize-link/  # AI summarization logic
-│   └── get-read-time/   # Reading time calculation
-├── entities/            # Business entities and their components
-│   └── link/
-├── shared/              # Reusable, framework-agnostic modules
-│   ├── api/             # API clients (e.g., gemini-client.ts)
-│   ├── ui/              # Primitive UI components (buttons, spinners, etc.)
-│   └── lib/             # Utility functions
-└── entrypoints/         # Browser extension manifest entry points
-    ├── background.ts    # Service worker / background script
-    ├── content.ts       # Content script injected into pages
-    └── popup.html       # The main popup UI file
+[![Build Status](https://img.shields.io/github/actions/workflow/user/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/ci.yml?style=flat-square)](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/actions/workflows/ci.yml)
+[![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension?style=flat-square)](https://codecov.io/github/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.x-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tauri](https://img.shields.io/badge/Tauri-v2-blue?style=flat-square&logo=tauri)](https://tauri.app/)
+[![Gemini API](https://img.shields.io/badge/Gemini%20API-Google-green?style=flat-square&logo=google-gemini)](https://ai.google.dev/models/gemini)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-orange?style=flat-square)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![GitHub Stars](https://img.shields.io/github/stars/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension.svg?style=flat-square)](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/stargazers)
+
+## ⭐ Star ⭐ this Repo
+
+Your support is invaluable! Please consider starring this repository if you find it useful.
+
+## 🏗️ Architecture
+
+mermaid
+graph TD
+    A[Browser Tab]
+    B(PeekInsight Extension)
+    C{Web Scraping Module}
+    D{AI Analysis Module (Gemini API)}
+    E{UI Rendering Module}
+    F[Content Script]
+    G[Background Script]
+
+    A --> B
+    B --> F
+    F --> C
+    C --> D
+    D --> E
+    E --> B
+    B --> G
+
+    subgraph Backend Services
+        D
+    end
+
+    subgraph Extension Core
+        B
+        F
+        G
+    end
+
+    subgraph Frontend Components
+        C
+        E
+    end
 
 
----
+## 📋 Table of Contents
 
-## 📖 Table of Contents
-
-- [✨ Core Features](#-core-features)
-- [🏛️ Architectural Overview](#️-architectural-overview)
-- [🤖 AI Agent Directives](#-ai-agent-directives)
-- [🚀 Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation & Setup](#installation--setup)
-- [🛠️ Development Standards](#️-development-standards)
-  - [Available Scripts](#available-scripts)
-  - [Core Principles](#core-principles)
-- [🤝 Contributing](#-contributing)
-- [📜 License](#-license)
+*   [🚀 Live Demo](#-live-demo)
+*   [✨ Features](#-features)
+*   [📊 Badges](#-badges)
+*   [⭐ Star ⭐ this Repo](#-star--this-repo)
+*   [🏗️ Architecture](#-architecture)
+*   [📋 Table of Contents](#-table-of-contents)
+*   [🤖 AI Agent Directives](#-ai-agent-directives)
+*   [🛠️ Development Setup](#-development-setup)
+*   [⚙️ Scripts](#-scripts)
+*   [⭐ Core Principles](#-core-principles)
+*   [⚖️ License](#-license)
+*   [🤝 Contributing](#-contributing)
+*   [🐞 Bug Report](#-bug-report)
+*   [🔒 Security](#-security)
 
 ---
 
 ## 🤖 AI Agent Directives
 
 <details>
-<summary><strong>click to expand:</strong> System & Agent Protocol (December 2025 Standard)</summary>
+<summary>Expand to view AI Agent Directives</summary>
 
-### SYSTEM: APEX TECHNICAL AUTHORITY & ELITE ARCHITECT (DECEMBER 2025 EDITION)
-
-#### 1. IDENTITY & PRIME DIRECTIVE
+### 1. Identity & Prime Directive
 **Role:** You are a Senior Principal Software Architect and Master Technical Copywriter with **40+ years of elite industry experience**. You operate with absolute precision, enforcing FAANG-level standards and the wisdom of "Managing the Unmanageable."
 **Context:** Current Date is **December 2025**. You are building for the 2026 standard.
 **Output Standard:** Deliver **EXECUTION-ONLY** results. No plans, no "reporting"—only executed code, updated docs, and applied fixes.
 **Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
 
----
-
-#### 2. INPUT PROCESSING & COGNITION
+### 2. Input Processing & Cognition
 *   **SPEECH-TO-TEXT INTERPRETATION PROTOCOL:**
     *   **Context:** User inputs may contain phonetic errors (homophones, typos).
     *   **Semantic Correction:** **STRICTLY FORBIDDEN** from executing literal typos. You must **INFER** technical intent based on the project context.
-    *   **Logic Anchor:** Treat this `README.md` as the **Single Source of Truth (SSOT)**.
+    *   **Logic Anchor:** Treat the `README.md` as the **Single Source of Truth (SSOT)**.
 *   **MANDATORY MCP INSTRUMENTATION:**
-    *   **No Guessing:** Do not hallucinate APIs.
+    *   **No Guessing:** Do not hallucinate APIs. Use `docfork` to verify *every* external API signature.
     *   **Research First:** Use `linkup`/`brave` to search for **December 2025 Industry Standards**, **Security Threats**, and **2026 UI Trends**.
-    *   **Validation:** Use `docfork` to verify *every* external API signature.
     *   **Reasoning:** Engage `clear-thought-two` to architect complex flows *before* writing code.
 
----
+### 3. Context-Aware Apex Tech Stacks (Late 2025 Standards)
+**Directives:** Detect the project type and apply the corresponding **Apex Toolchain**.
 
-#### 3. CONTEXT-AWARE APEX TECH STACKS (LATE 2025 STANDARDS)
-**Directives:** Detect the project type and apply the corresponding **Apex Toolchain**. This repository, `PeekInsight-AI-Link-Preview-Browser-Extension`, is a modern TypeScript-based browser extension.
+*   **PRIMARY SCENARIO: WEB / APP / EXTENSION (TypeScript) - *Applies to this project.***
+    *   **Stack:** This project leverages **TypeScript 6.x** with strict type checking enabled. It utilizes **Vite 7** (with Rolldown engine) for lightning-fast development builds and optimization, and **Tauri v2.x** for cross-platform desktop application packaging. For extension development, **WXT (Web Extension Tooling)** is the standard.
+    *   **State Management:** Adopts standardized Signals for efficient and predictable UI updates.
+    *   **UI Framework:** Tailwind CSS v4 for rapid, utility-first UI development.
+    *   **Linting & Formatting:** **Biome** is used for its unparalleled speed in linting and formatting across JavaScript, TypeScript, and CSS.
+    *   **Testing:** **Vitest** for lightning-fast unit and component tests, integrated seamlessly with Vite. **Playwright** for robust end-to-end (E2E) testing across major browsers.
+    *   **Architecture:** Follows the **Feature-Sliced Design (FSD)** pattern for a scalable and maintainable frontend architecture.
+    *   **AI Integration:** Deeply integrated with **Google Gemini API** (`gemini-3-pro` by default) for intelligent link preview generation, summarization, and credibility analysis. Prioritize modular design, clear API contracts, and robust error handling for all AI model interactions.
 
-*   **PRIMARY SCENARIO: WEB / APP / EXTENSION (TypeScript)**
-    *   **Stack:** This project leverages **TypeScript 6.x (Strict Mode)** for robust type safety. It uses **WXT (Web Extension Toolkit)**, a Vite-powered framework that simplifies cross-browser development (Chrome, Firefox, Edge) and provides modern features like HMR.
-    *   **Architecture:** Adheres to **Feature-Sliced Design (FSD)**, promoting a highly modular and scalable structure. This is critical for managing the complexity of content scripts, background services, and UI components.
-    *   **AI Integration:** Deeply integrated with the **Google Gemini API** (`gemini-3-pro` by default) for all summarization and analysis tasks. Communication is handled securely through the background service worker to protect API keys and manage requests.
-    *   **Linting & Formatting:** **Biome** is the single, unified tool for linting, formatting, and import sorting, ensuring maximum performance and code consistency.
-    *   **Testing:**
-        *   **Unit/Integration:** **Vitest** for fast, in-source testing of individual components and features.
-        *   **End-to-End (E2E):** **Playwright** for comprehensive, browser-level testing of the extension's behavior in a real-world environment.
+### 4. Apex Naming Convention
+A high-performing name must instantly communicate **Product**, **Function**, **Platform**, and **Type**.
+**Formula:** `<Product-Name>-<Primary-Function>-<Platform>-<Type>`
+**Format:** `Title-Case-With-Hyphens` (e.g., `PeekInsight-AI-Link-Preview-Browser-Extension`)
+**Rules:**
+1.  **Length:** 3 to 10 words.
+2.  **Keywords:** MUST include high-volume terms.
+3.  **Forbidden:** NO numbers, NO emojis, NO underscores, NO generic words ("app", "tool") without qualifiers.
 
-*   **SECONDARY SCENARIO: DATA / SCRIPTS / AI (Python) - *Not applicable for this project's primary function. Reference only for potential future data analysis scripts.***
-    *   **Stack:** **Python 3.10+** with **uv** (package management), **Ruff** (linting), and **Pytest** (testing).
+### 5. Professional Archival (The "Retired Product" Standard)
+Archived repositories are **NOT** junk. They are "Retired Products." Even when archiving, you **MUST** elevate the metadata (Name, Description, Topics) to the highest professional standard. The tone must be dignified, historical, and valuable.
+
+### 6. Dynamic URL & Badge Protocol
+*   **Base URL:** `https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension`
+*   **Badge URLs:** All Shields.io badges must point to this Base URL or its specific workflows (e.g., `/actions/workflows/ci.yml`).
+*   **Consistency:** Never use the old/original repository name in links. Always use the new "Apex" name.
 
 </details>
 
-## 🚀 Getting Started
+---
 
-Follow these instructions to get the development environment up and running on your local machine.
+## 🛠️ Development Setup
+
+This project is built using **TypeScript** with **Vite** for development and bundled with **Tauri v2** for cross-platform compatibility.
 
 ### Prerequisites
 
-*   **Node.js**: `v20.x` or higher
-*   **pnpm**: `v9.x` or higher
+*   **Node.js:** Version 18+ recommended.
+*   **npm:** Version 9+ recommended.
+*   **Rust:** Version 1.70+ (for Tauri).
+    *   Install Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+*   **Tauri CLI:** Install globally: `npm install -g @tauri-apps/cli`
 
-### Installation & Setup
+### Installation
 
-1.  **Clone the repository:**
+1.  **Clone the Repository:**
     bash
     git clone https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension.git
     cd PeekInsight-AI-Link-Preview-Browser-Extension
     
 
-2.  **Install dependencies:**
+2.  **Install Dependencies:**
     bash
-    pnpm install
+    npm install
     
 
-3.  **Create environment file:**
-    Copy the example environment file and add your Google Gemini API key.
-    bash
-    cp .env.example .env
-    
-    Then edit `.env`:
-    
-    VITE_GEMINI_API_KEY="YOUR_API_KEY_HERE"
+3.  **Configure Environment Variables (if applicable):**
+    Create a `.env` file in the root directory and add your API keys, e.g.:
+    env
+    GEMINI_API_KEY=YOUR_GEMINI_API_KEY
     
 
-4.  **Run the development server:**
-    This will start a Vite-based dev server with Hot Module Replacement (HMR).
-    bash
-    pnpm dev
-    
+---
 
-5.  **Load the extension in your browser:**
-    *   **Chrome/Edge:** Navigate to `chrome://extensions`, enable "Developer mode", click "Load unpacked", and select the `dist/` directory.
-    *   **Firefox:** Navigate to `about:debugging`, click "This Firefox", click "Load Temporary Add-on...", and select the `dist/manifest.json` file.
+## ⚙️ Scripts
 
-## 🛠️ Development Standards
+| Script        | Description                                                               |
+| :------------ | :------------------------------------------------------------------------ |
+| `npm run dev` | Starts the Vite development server with Hot Module Replacement (HMR).     |
+| `npm run build` | Builds the production-ready application for Tauri.                      |
+| `npm run preview` | Locally previews the Vite production build.                               |
+| `npm run lint`  | Runs Biome to check and fix code style and potential errors.              |
+| `npm run test`  | Executes Vitest unit and component tests.                                 |
+| `npm run test:e2e` | Runs Playwright end-to-end tests.                                       |
+| `npm run tauri:dev` | Runs the Tauri application in development mode.                           |
+| `npm run tauri:build` | Builds the Tauri application for release.                                 |
 
-### Available Scripts
+---
 
-This project uses `pnpm` as the package manager. Key scripts are defined in `package.json`:
+## ⭐ Core Principles
 
-| Command          | Description                                                                 |
-| ---------------- | --------------------------------------------------------------------------- |
-| `pnpm dev`       | Starts the development server with HMR for immediate feedback.              |
-| `pnpm build`     | Compiles and bundles the extension for production into the `/dist` folder.  |
-| `pnpm test`      | Runs unit and integration tests using Vitest.                               |
-| `pnpm test:e2e`  | Runs end-to-end tests using Playwright.                                     |
-| `pnpm lint`      | Lints and formats the entire codebase using Biome.                          |
-| `pnpm lint:check`| Checks for linting and formatting errors without applying changes (for CI). |
+This project adheres to the following software development principles:
 
-### Core Principles
+*   **SOLID:** Ensures maintainable and scalable object-oriented design.
+*   **DRY (Don't Repeat Yourself):** Minimizes redundancy in code.
+*   **YAGNI (You Ain't Gonna Need It):** Focuses on current requirements, avoiding unnecessary complexity.
+*   **KISS (Keep It Simple, Stupid):** Favors straightforward solutions.
 
-*   **SOLID:** Code is structured to be understandable, flexible, and maintainable.
-*   **DRY (Don't Repeat Yourself):** Reusable logic is abstracted into shared modules.
-*   **YAGNI (You Ain't Gonna Need It):** Features are built as they are required, avoiding premature optimization.
+---
+
+## ⚖️ License
+
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license. See the `LICENSE` file for more details.
+
+*   **Attribution:** You must give appropriate credit.
+*   **NonCommercial:** You may not use the material for commercial purposes.
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [**Contributing Guidelines**](.github/CONTRIBUTING.md) to get started. We use GitHub Issues for bug reports and feature requests.
+We welcome contributions! Please read our [CONTRIBUTING.md](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/blob/main/.github/CONTRIBUTING.md) file for details on our code of conduct and the process for submitting pull requests.
 
-## 📜 License
+---
 
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License** - see the [LICENSE](LICENSE) file for details.
+## 🐞 Bug Report
+
+If you encounter any bugs, please file a detailed bug report using our [Issue Template](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/issues/new?template=bug_report.md). Include steps to reproduce, expected vs. actual behavior, and relevant environment details.
+
+---
+
+## 🔒 Security
+
+Security is paramount. Please refer to our [SECURITY.md](https://github.com/chirag127/PeekInsight-AI-Link-Preview-Browser-Extension/blob/main/.github/SECURITY.md) file for information on reporting security vulnerabilities.
