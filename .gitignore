@@ -1,41 +1,71 @@
-# Dependency Directories
-node_modules/
-venv/
-.venv/
+# --- System & Editor Files ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# Build Artifacts & Output
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.history/
+
+# JetBrains
+.idea/
+
+# --- Dependencies & Build Artifacts ---
+# Node.js modules
+node_modules/
+
+# Build output
 dist/
 build/
+out/
+
+# Packed extension files
+*.zip
+*.crx
+*.xpi
+
+# --- Logs, Caches & Runtime Data ---
+# General logs
+logs
 *.log
-*.tmp
 
-# Editor & OS Files
-.vscode/
-.idea/
-*.swp
-.DS_Store
+# NPM/Yarn/PNPM logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Extension Specific Caches (Browser Extensions)
-.parcel-cache/
-.web-ext-artifacts/
+# Caches
+.npm
+.eslintcache
+.stylelintcache
+.cache
 
-# TypeScript / JavaScript Build Files
-/dist
-/lib
-*.js.map
-*.tsbuildinfo
+# Runtime data
+.pids
+*.pid
+*.seed
+*.pid.lock
 
-# Secrets and Local Configuration
+# --- Environment & Configuration ---
+# Environment variables - DO NOT COMMIT API KEYS
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
 
-# Testing and Coverage
+# --- Testing ---
+# Test reports and coverage
 coverage/
 .nyc_output/
-
-# Artifacts from Package Managers (Node)
-npm-debug.log*
-yarn-error.log*
-
-# Specific to Browser Extension Development (if applicable)
-web-ext-config.js
