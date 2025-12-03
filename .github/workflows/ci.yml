@@ -1,0 +1,150 @@
+# CI/CD Pipeline for PeekInsight Browser Extension
+# Standardized by Apex Technical Authority (December 2025)
+
+name: PeekInsight CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+# Default Permissions for all jobs
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  # Job 1: Lint, Format, and Static Analysis (Mandatory Pre-Flight Check)
+  static_analysis:
+    name: Lint & Format Check (Biome/Ruff Standard)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js (for Vite/Extension Build Tools)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Aligned with modern Vite requirements
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Verify Formatting (Biome)
+        # Assuming Biome is used for JS/TS/CSS formatting in a modern extension
+        run: npx @biomejs/biome check --apply=false --error-on-warnings
+
+      - name: Run TypeScript Type Checking
+        run: npx tsc --noEmit
+
+  # Job 2: Unit & Component Testing (Vitest Standard)
+  unit_test:
+    name: Unit Tests (Vitest)
+    needs: static_analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Vitest Unit Tests
+        run: npx vitest run --coverage --passWithNoTests
+
+      - name: Upload Coverage Report
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          name: codecov-unit-tests
+          flags: unittests
+          fail_on_error: true
+
+  # Job 3: Build and Package Artifact (Vite Standard for Extension)
+  build_package:
+    name: Build & Package Extension
+    needs: unit_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Extension Artifact (Vite Production Build)
+        # This step assumes a standard Vite configuration for extensions
+        run: npm run build
+
+      - name: Archive Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: peekinsight-extension-build
+          path: dist/ # Assuming 'dist' is the output directory post-build
+
+  # Job 4: E2E Testing (Playwright Standard - Optional but recommended for key flows)
+  e2e_test:
+    name: E2E Tests (Playwright)
+    needs: build_package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright Tests
+        run: npx playwright test
+        env:
+          CI: true
+
+  # Job 5: Deployment (Conditional Deployment to Chrome Web Store / Firefox Add-ons)
+  # Deployment steps are often complex and require secrets, so this remains a placeholder
+  deploy:
+    name: Publish Artifacts
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build_package
+    runs-on: ubuntu-latest
+    environment: production # Assumes an environment named 'production' is configured
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: peekinsight-extension-build
+          path: ./packaged/
+
+      - name: Deploy to Chrome Web Store (Example)
+        # Placeholder for actual deployment logic using secrets (e.g., zip and upload tool)
+        run: |
+          echo "Simulating deployment to Chrome Web Store..."
+          # zip -r peekinsight.zip ./packaged/dist
+          # node ./scripts/publish_cws.js --zip ./packaged/peekinsight.zip --client-id $CWS_CLIENT_ID ...
+        env:
+          CWS_CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+          CWS_CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+          CWS_REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
